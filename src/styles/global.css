@@ -1,1 +1,55 @@
 @import "tailwindcss";
+
+/* Paleta de colores. */
+
+@theme {
+  --color-primary: #863346;
+  --color-primary-600: #6F2A3A;
+  --color-primary-400: #9C4A5E;
+
+  --color-background: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-muted-bg: #F3F4F6;
+
+  --color-text: #111827;
+  --color-text-muted: #4B5563;
+  --color-text-light: #9CA3AF;
+
+  --color-border: #E5E7EB;
+  --color-divider: #D1D5DB;
+
+  --color-accent: #E6C2C8;
+  --color-accent-gray: #B7A8AD;
+  --color-highlight: #F5E8EB;
+
+  --color-blue: #0F172A;
+  --color-blue-suave: #1E40AF;
+  --color-blue-pastel: #3B82F6;
+}
+
+/* Config para las fuentes. */
+
+@theme {
+  --font-primary: "Broela", serif;
+  --font-text: "Poppis", system-ui, sans-serif;
+  --font-accent: "LegendSacred", serif;
+}
+
+
+@font-face {
+  font-family: "Broela";
+  src: url("/fonts/broela.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppis";
+  src: url("/fonts/poppis.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LegendSacred";
+  src: url("/fonts/legend-sacred.woff2") format("woff2");
+  font-display: swap;
+}
