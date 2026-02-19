@@ -1,0 +1,72 @@
+---
+import { client } from "../lib/contentful";
+import Title from "./Title.astro/Title.astro";
+
+const res = await client.getEntries({
+  content_type: "bookresen",
+  include: 2,
+});
+
+const hero = res.items[0].fields;
+
+// backgroundImage
+const backgroundImage = hero.backgroundImage as any;
+const assetId = backgroundImage?.sys?.id;
+
+const asset = res.includes?.Asset?.find((a) => a.sys.id === assetId);
+const bgUrl = asset ? `https:${asset.fields?.file?.url}` : "";
+
+// Icon
+const iconAssetId = (hero.iconimage as any)?.sys?.id;
+const iconAsset = res.includes?.Asset?.find((a) => a.sys.id === iconAssetId);
+const iconUrl = iconAsset ? `https:${iconAsset.fields.file?.url}` : "";
+---
+
+<!-- Seccion Hero aqui se renderiza toda la infromacion que generemaos desde contentful para que sea mostrada. -->
+<section class="relative w-dvw h-dvh flex items-center justify-center">
+  <!--Overlay encima de la imagen.. -->
+  <div
+    class="w-full h-full absolute top-0 ring-0 bg-linear-to-r from-text via-text/98 to-transparent z-10"
+  >
+  </div>
+
+  <!--Imagen traida desde contentfull..  -->
+  <!-- Imagen optimizada -->
+  <picture class="absolute inset-0 w-full h-full">
+    <source srcset={`${bgUrl}?fm=avif&w=1920&q=80`} type="image/avif" />
+    <source srcset={`${bgUrl}?fm=webp&w=1920&q=80`} type="image/webp" />
+    <img
+      src={`${bgUrl}?fm=jpg&w=1920&q=80`}
+      alt="Hero background"
+      loading="eager"
+      decoding="async"
+      class="w-full h-full object-cover"
+    />
+  </picture>
+
+  <!-- ICONO -->
+  {
+    iconUrl && (
+      <img
+        src={`${iconUrl}?fm=webp&w=200&q=80`}
+        alt="Icono hero"
+        class="w-15 h-15 absolute lg:top-10 lg:left-10 z-50 opacity-85"
+      />
+    )
+  }
+
+  <!-- Contenido... -->
+  <div class="absolute top-100 left-30 max-w-4xl z-40">
+    <div class="w-full h-auto">
+      <h1>
+        <Title class="text-7xl text-surface font-semibold leading-18 pb-8">
+          {hero.titlehero}
+        </Title>
+      </h1>
+
+      <h2 class="font-text text-primary-400 font-semibold lg:text-2xl lg:w-200">
+        {hero.subtitlehero}
+      </h2>
+    </div>
+  </div>
+</section>
